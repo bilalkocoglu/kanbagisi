@@ -169,8 +169,8 @@
 		<!-- JPA -->
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.0-api</artifactId>
-			<scope>compile</scope>
+			<artifactId>hibernate-jpa-2.1-api</artifactId>
+			<version>1.0.0.Final</version>
 		</dependency>
 
 		<dependency>
@@ -265,4 +265,5 @@
 		</dependency>
 
 	</dependencies>
+
 </project>
