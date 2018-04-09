@@ -9,49 +9,76 @@ import javax.validation.constraints.Size;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private int userId;
 
     @NotNull
     @Size(min = 5, max = 30)
     @Column
-    private String name;
+    private String userName;
 
     @NotNull
     @Size(min = 5, max = 30)
     @Column
-    private String surname;
+    private String userSurname;
+
+    @NotNull
+    @Size(min = 11, max = 11)
+    @Column
+    private String userTel;
+
+    @ManyToOne
+    @JoinColumn(name = "cityId")
+    private City city;
 
     public User() {
     }
 
-    public User(String name, String surname) {
+    public User(String userName, String userSurname, String userTel, City city) {
 
-        this.name = name;
-        this.surname = surname;
+        this.userName = userName;
+        this.userSurname = userSurname;
+        this.userTel = userTel;
+        this.city = city;
     }
 
-    public int getId() {
+    public int getUserId() {
 
-        return id;
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getUserSurname() {
+        return userSurname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setUserSurname(String userSurname) {
+        this.userSurname = userSurname;
+    }
+
+    public String getUserTel() {
+        return userTel;
+    }
+
+    public void setUserTel(String userTel) {
+        this.userTel = userTel;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 }
