@@ -38,9 +38,13 @@
 						<div id="uyeGirisKutusu">
 							<h:form class="was-validated">
 								<div class="form-group">
-									<h:inputText value="#{login.username}" id="userName" class="form-control is-invalid loginInputs" a:placeholder="Kullanıcı Adı veya eMail" maxlength="50" required="true"/>
-									<h:inputSecret value="#{login.pass}" id="password"  class="form-control is-invalid loginInputs" maxlength="20" a:placeholder="Şifre" required="true"/>
-									<p style="width: 100%; font-weight: bold; font-size: x-small;">Kan bağışçısı olmak için üye olup girip yapmalısınız.</p>
+									<h:inputText value="#{login.username}" id="userName" class="form-control is-invalid loginInputs" a:placeholder="Kullanıcı Adı veya eMail" maxlength="50" required="true" requiredMessage="Kullanıcı adı boş bırakılamaz."/>
+									    <h:message for="userName" style=" width: 100%; font-weight: bold; font-size: x-small; color:red;"/>
+
+                                    <h:inputSecret value="#{login.pass}" id="password"  class="form-control is-invalid loginInputs" maxlength="20" a:placeholder="Şifre" required="true" requiredMessage="Şifre boş bırakılamaz."/>
+                                        <h:message for="password" style=" width: 100%; font-weight: bold; font-size: x-small; color:red;"/>
+
+                                    <p style="width: 100%; font-weight: bold; font-size: x-small;">Kan bağışçısı olmak için üye olup girip yapmalısınız.</p>
 									<h:commandButton action="#{login.yazdir}" id="loginButton" style="cursor: pointer; float: right; margin-bottom: 10px; margin-top: 20px;" class="btn btn-outline-primary" value="Giriş Yap"/>
 								</div>
 							</h:form>
@@ -56,29 +60,35 @@
 
 						<!-- The Modal (contains the Sign Up form) -->
 						<div id="id01" class="modal">
-							<form class="modal-content animate">
+							<h:form class="modal-content animate">
 								<div class="container">
 									<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">KAPAT</span>
 									<label><b>Ad</b></label>
-									<input id="newName" type="text" placeholder="Ad" name="email" maxlength="20" />
+									<h:inputText id="newUserName" name="newUserName" a:placeholder="Ad" maxlength="20" required="true" requiredMessage="Adı boş bırakmayınız." />
+                                        <h:message for="newUserName" style=" width: 100%; font-weight: bold; font-size: x-small; color:red;"/>
 
 									<label><b>Soyad</b></label>
-									<input id="newLasName" type="text" placeholder="Soyad" name="email" maxlength="20" />
+									<h:inputText id="newUserSurname" name="newUserSurname" a:placeholder="Soyad" maxlength="20" required="true" requiredMessage="Soyadı boş bırakamazsınız." />
+                                        <h:message for="newUserSurname" style=" width: 100%; font-weight: bold; font-size: x-small; color:red;"/>
 
 									<label><b>Email veya Kullanıcı Adı</b></label>
-									<input id="newUsername" type="text" placeholder="eMail veya Kullanıcı Adı" name="email" maxlength="60" />
+									<h:inputText id="newUserSystemName" name="newUserSystemName" a:placeholder="eMail veya Kullanıcı Adı" maxlength="60" required="true" requiredMessage="Kullanıcı adını boş bırakamazsınız." />
+                                        <h:message for="newUserSystemName" style=" width: 100%; font-weight: bold; font-size: x-small; color:red;"/>
 
 									<label><b>Şifre</b></label>
-									<input id="newPassword" type="password" placeholder="Şifre" name="psw" maxlength="20" />
+									<h:inputSecret id="newSystemPas" name="newSystemPas" a:placeholder="Şifre" maxlength="20" required="true" requiredMessage="Şifreyi boş bırakamazsınız." />
+                                        <h:message for="newSystemPas" style=" width: 100%; font-weight: bold; font-size: x-small; color:red;"/>
 
 									<label><b>Şifre Tekrar</b></label>
-									<input id="newPasswordAgain" type="password" placeholder="Şifre Tekrar" name="psw-repeat" maxlength="20" />
+									<h:inputSecret id="newSystemPassAgain" name="newSystemPassAgain" a:placeholder="Şifre Tekrar" maxlength="20" required="true" requiredMessage="Şifreler uyuşmamaktadır."/>
+                                        <h:message for="newSystemPassAgain" style=" width: 100%; font-weight: bold; font-size: x-small; color:red;"/>
+
 									<div class="clearfix">
 										<button class="btn btn-danger cancelbtn" type="button" onclick="document.getElementById('id01').style.display='none'">Cancel</button>
-										<button id="newUserButton" type="submit" class="btn btn-success">Kayıt Ol</button>
+										<h:commandButton id="newUserButton" class="btn btn-success" style="margin-left: 10px;" value="Kayıt Ol"/>
 									</div>
 								</div>
-							</form>
+							</h:form>
 						</div>
 					</div>
 					<div class="col-lg-1"></div>

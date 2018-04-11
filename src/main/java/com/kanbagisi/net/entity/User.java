@@ -26,6 +26,16 @@ public class User {
     @Column
     private String userTel;
 
+    @NotNull
+    @Size(min = 5, max = 60)
+    @Column
+    private String userSystemName;
+
+    @NotNull
+    @Size(min = 5, max = 30)
+    @Column
+    private String userSystemPass;
+
     @ManyToOne
     @JoinColumn(name = "cityId")
     private City city;
@@ -33,12 +43,29 @@ public class User {
     public User() {
     }
 
-    public User(String userName, String userSurname, String userTel, City city) {
-
+    public User(String userName, String userSurname, String userTel, String userSystemName, String userSystemPass, City city) {
         this.userName = userName;
         this.userSurname = userSurname;
         this.userTel = userTel;
+        this.userSystemName = userSystemName;
+        this.userSystemPass = userSystemPass;
         this.city = city;
+    }
+
+    public String getUserSystemName() {
+        return userSystemName;
+    }
+
+    public void setUserSystemName(String userSystemName) {
+        this.userSystemName = userSystemName;
+    }
+
+    public String getUserSystemPass() {
+        return userSystemPass;
+    }
+
+    public void setUserSystemPass(String userSystemPass) {
+        this.userSystemPass = userSystemPass;
     }
 
     public int getUserId() {
