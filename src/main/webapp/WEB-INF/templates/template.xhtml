@@ -20,7 +20,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous" type="text/javascript"/>
 
 </h:head>
-<body>
+<body onload="geoFindMe()">
 
         <!-- MENU -->
 
@@ -66,67 +66,16 @@
 										<option>Isparta</option>
 										<option>Afyonkarahisar</option>
 									</select>
-									<label for="inputState" style="font-weight: bold; margin-top: 5px;">İlçe</label>
+									<label for="inputState" style="font-weight: bold; margin-top: 5px;">Kan Grubu</label>
 									<select id="inputState" class="form-control" style="width: 100%; margin-top: 5px;">
-										<option >Merkez</option>
-										<option>Çünür</option>
-										<option>Senirkent</option>
-									</select>
-									<label for="inputState" style="font-weight: bold; margin-top: 15px; margin-bottom: 5px;">Tür</label>
-									<fieldset class="form-group">
-										<div class="row">
-											<div class="col">
-												<div class="form-check" >
-													<label class="form-check-label" style="cursor: pointer;">
-														<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"/>
-														<span>Yurt</span>
-													</label>
-												</div>
-											</div>
-											<div class="col">
-												<div class="form-check" >
-													<label class="form-check-label" style="cursor: pointer;">
-														<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2"/>
-														Apart
-													</label>
-												</div>
-											</div>
-											<div class="col">
-												<div class="form-check" style="margin-left: 50px; margin-top: 10px;">
-													<label class="form-check-label" style="cursor: pointer;">
-														<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option2"/>
-														Hepsi
-													</label>
-												</div>
-											</div>
-										</div>
-									</fieldset>
-									<label for="inputState" style="font-weight: bold; margin-top: 15px; margin-bottom: 5px;">Konum</label>
-									<div class="form-check">
-										<label class="form-check-label">
-											<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"/>
-											Merkeze Yakın
-										</label>
-									</div>
-									<div class="form-check">
-										<label class="form-check-label">
-											<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2"/>
-											Okula Yakın
-										</label>
-									</div>
-									<div class="form-check">
-										<label class="form-check-label">
-											<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2"/>
-											Hepsi
-										</label>
-									</div>
-									<label for="inputState" style="font-weight: bold;">Fiyat</label>
-									<select id="inputState" class="form-control" style="width: 100%; margin-top: 5px;">
-										<option>...</option>
-										<option>... - 400</option>
-										<option>400 - 600</option>
-										<option>600 - 800</option>
-										<option>800 - ...</option>
+										<option>AB Rh +</option>
+										<option>AB Rh -</option>
+										<option>B  Rh +</option>
+										<option>B  Rh -</option>
+										<option>A  Rh +</option>
+										<option>A  Rh -</option>
+										<option>0  Rh +</option>
+										<option>0  Rh -</option>
 									</select>
 								</div>
 							</div>
@@ -202,23 +151,24 @@
 					</div>
 					<h:form class="was-validated">
 						<div class="form-group" style="margin-bottom: 10px;">
-							<h:inputText id="proposalMail" class="form-control is-invalid"  a:placeholder="E-posta Adresi"
+							<h:inputText id="proposalMail" value="#{newProposal.email}" class="form-control is-invalid"  a:placeholder="E-posta Adresi"
 										 maxlength="50" required="true" requiredMessage="e-Mail Adresi Boş Bırakılamaz."
 											validatorMessage="Geçersiz E-posta adresi !">
 								<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
 							</h:inputText>
 								<h:message for="proposalMail" style=" width: 100%; font-weight: bold; font-size: x-small; color:red;" />
 
-							<h:inputTextarea id="proposalMessage" class="form-control is-invalid" rows="4" maxlength="400" a:placeholder="Mesajınız" required="true" requiredMessage="Lürfen mesajınızı yazınız." />
+							<h:inputTextarea id="proposalMessage" value="#{newProposal.message}" class="form-control is-invalid" rows="4" maxlength="400" a:placeholder="Mesajınız" required="true" requiredMessage="Lürfen mesajınızı yazınız." />
 								<h:message for="proposalMessage" style=" width: 100%; font-weight: bold; font-size: x-small; color:red;" />
 
 							<small id="emailHelp" class="form-text text-muted">#{langTR.footerePostaSecurityMessage}</small>
 							<label class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input is-valid"/>
+								<h:selectBooleanCheckbox value="#{newProposal.state}"/>
 								<span class="custom-control-indicator"></span>
 								<span style="margin-top: 5px;" class="custom-control-description">Bu adrese yurtbul.com bilgilendirme mailleri almak istiyorum.<br/></span>
 							</label>
-							<h:commandButton id="messageSendButton" action="#{login.yazdir}" style="cursor: pointer;" class="btn btn-primary" value="Gönder"/>
+							<h:inputHidden id="proposalHiddenMessage" value="İşleminiz bir şekilde gerçekleştirildi !";
+							<h:commandButton id="messageSendButton" action="#{newProposal.sendProposal}" style="cursor: pointer;" class="btn btn-primary" value="Gönder"/>
 						</div>
 					</h:form>
 				</div>
