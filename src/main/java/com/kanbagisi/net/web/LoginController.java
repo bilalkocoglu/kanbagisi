@@ -12,7 +12,6 @@ import javax.servlet.*;
 import java.io.IOException;
 
 @ManagedBean(name = "login")
-@RequestScoped
 public class LoginController implements Filter {
     private String username;
     private String pass;
