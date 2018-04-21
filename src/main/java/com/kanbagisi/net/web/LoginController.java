@@ -1,7 +1,12 @@
-package com.kanbagisi.net;
+package com.kanbagisi.net.web;
 
+import com.kanbagisi.net.entity.User;
+import com.kanbagisi.net.services.SessionService;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.servlet.*;
 import java.io.IOException;
@@ -12,13 +17,25 @@ public class LoginController implements Filter {
     private String username;
     private String pass;
 
+    private UIComponent loginForm;
+
+    SessionService sessionService;
+
     public LoginController() {
+        sessionService = new SessionService();
     }
 
-    public void yazdir(){
+    public String login(){
         FacesContext context = FacesContext.getCurrentInstance();
-        context.getExternalContext().getSessionMap().put("kadi", username);
-        System.out.println("Başlatıltı. " + getUsername() + " ve " + getPass());
+        User user = sessionService.userControl(getUsername(), getUsername());
+        if (user == null){
+            FacesMessage facesMessage = new FacesMessage("Kullanıcı adı veya şifre hatalı. Lütfen tekrar deneyiniz.");
+            context.addMessage(loginForm.getClientId(context),facesMessage);
+            return null;
+        }else {
+            context.getExternalContext().getSessionMap().put("onlineUser",user);
+            return "admin?faces-redirect=true";
+        }
     }
 
     public String getUsername() {
@@ -35,6 +52,14 @@ public class LoginController implements Filter {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public UIComponent getLoginForm() {
+        return loginForm;
+    }
+
+    public void setLoginForm(UIComponent loginForm) {
+        this.loginForm = loginForm;
     }
 
     @Override

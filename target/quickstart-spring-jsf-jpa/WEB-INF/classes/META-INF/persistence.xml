@@ -6,6 +6,7 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 
              version="2.1">
     <persistence-unit name="myapp">
+        <class>com.kanbagisi.net.entity.BloodGroup</class>
         <class>com.kanbagisi.net.entity.Proposal</class>
         <class>com.kanbagisi.net.entity.State</class>
         <class>com.kanbagisi.net.entity.City</class>

@@ -11,7 +11,7 @@ xmlns="http://java.sun.com/xml/ns/javaee"
 
     <filter>
         <filter-name>turkcekarakter</filter-name>
-        <filter-class>com.kanbagisi.net.LoginController</filter-class>
+        <filter-class>com.kanbagisi.net.web.LoginController</filter-class>
     </filter>
 
     <filter-mapping>

@@ -1,0 +1,5 @@
+<f:ajax execute="newUserName newUserSurname newUserSystemName newUserTel newUserPas newUserPassAgain newUserCity"
+													render=":greeting newUserNameMessage newUserSurnameMessage newUserSystemNameMessage newUserTelMessage newSystemPasMessage newSystemPassAgainMessage"/>
+
+
+											<f:ajax event="blur" render=":greeting newUserNameMessage newUserSurnameMessage newUserSystemNameMessage newUserTelMessage newSystemPasMessage newSystemPassAgainMessage"/>

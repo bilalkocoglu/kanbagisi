@@ -5,6 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<title>Her Bağış Bir Umut</title>
@@ -58,29 +59,21 @@
 				<div class="row">
 					<div class="col-1"></div>
 					<div class="col">
-						<form>
+						<h:form>
 							<div class="form-row">
 								<div class="form-group">
 									<label for="inputState" style="font-weight: bold;">Şehir</label>
-									<select id="inputState" class="form-control" style="width: 100%; margin-top: 5px;">
-										<option>Isparta</option>
-										<option>Afyonkarahisar</option>
-									</select>
-									<label for="inputState" style="font-weight: bold; margin-top: 5px;">Kan Grubu</label>
-									<select id="inputState" class="form-control" style="width: 100%; margin-top: 5px;">
-										<option>AB Rh +</option>
-										<option>AB Rh -</option>
-										<option>B  Rh +</option>
-										<option>B  Rh -</option>
-										<option>A  Rh +</option>
-										<option>A  Rh -</option>
-										<option>0  Rh +</option>
-										<option>0  Rh -</option>
-									</select>
+									<h:selectOneMenu id="inputState" value="#{load.selectedCityId}" class="form-control" style="width: 100%; margin-top: 5px;">
+										<f:selectItems value="#{load.allCityMap}" />
+                                    </h:selectOneMenu>
+									<label for="inputState1" style="font-weight: bold; margin-top: 5px;">Kan Grubu</label>
+									<h:selectOneMenu id="inputState1" value="#{load.selectedBloodGroupId}" class="form-control" style="width: 100%; margin-top: 5px;">
+										<f:selectItems value="#{load.allBloodGroupMap}" />
+									</h:selectOneMenu>
 								</div>
 							</div>
-							<button type="submit" style="float: right;" class="btn btn-primary">Ara</button>
-						</form>
+							<h:commandButton action="#{load.filtrele}" value="Ara" style="float: right;" class="btn btn-primary"/>
+						</h:form>
 					</div>
 					<div class="col-1"></div>
 				</div>

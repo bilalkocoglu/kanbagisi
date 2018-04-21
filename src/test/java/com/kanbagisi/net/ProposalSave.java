@@ -5,12 +5,11 @@ import com.kanbagisi.net.dao.State.impl.StateRepositoryImpl;
 import com.kanbagisi.net.entity.Proposal;
 import com.kanbagisi.net.entity.State;
 
-public class TestProposal {
+public class ProposalSave {
     public static void main(String [] args){
-        StateRepositoryImpl stateRepository = new StateRepositoryImpl();
         GeneralRepositoryImpl generalRepository = new GeneralRepositoryImpl();
 
-        State state = stateRepository.findStateById(1);
+        State state = generalRepository.findById(State.class,1);
 
         Proposal proposal = new Proposal("bilal.kocoglu@gmail.com", "selam ağam", state);
 

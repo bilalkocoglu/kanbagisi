@@ -12,12 +12,12 @@ public class User {
     private int userId;
 
     @NotNull
-    @Size(min = 5, max = 30)
+    @Size(max = 30)
     @Column
     private String userName;
 
     @NotNull
-    @Size(min = 5, max = 30)
+    @Size(max = 30)
     @Column
     private String userSurname;
 
@@ -27,12 +27,12 @@ public class User {
     private String userTel;
 
     @NotNull
-    @Size(min = 5, max = 60)
+    @Size(max = 60)
     @Column
     private String userSystemName;
 
     @NotNull
-    @Size(min = 5, max = 30)
+    @Size(max = 30)
     @Column
     private String userSystemPass;
 
@@ -41,6 +41,14 @@ public class User {
     private City city;
 
     public User() {
+    }
+
+    public User(String userName, String userSurname, String userTel, String userSystemName, String userSystemPass) {
+        this.userName = userName;
+        this.userSurname = userSurname;
+        this.userTel = userTel;
+        this.userSystemName = userSystemName;
+        this.userSystemPass = userSystemPass;
     }
 
     public User(String userName, String userSurname, String userTel, String userSystemName, String userSystemPass, City city) {

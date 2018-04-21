@@ -9,7 +9,7 @@ public class ProposalService {
     GeneralRepositoryImpl generalRepository = new GeneralRepositoryImpl();
     StateRepositoryImpl stateRepository = new StateRepositoryImpl();
     public boolean addProposal(String email, String message, int stateId){
-        State state1 = stateRepository.findStateById(stateId);
+        State state1 = generalRepository.findById(State.class,stateId);
         if (state1!=null){
             Proposal proposal = new Proposal(email, message, state1);
             return generalRepository.save(proposal);

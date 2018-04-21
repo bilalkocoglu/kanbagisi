@@ -4,11 +4,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	template="/WEB-INF/templates/template.xhtml"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:p="http://primefaces.org/ui/extensions"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
 	<ui:define name="content">
-
+		<div class="alert alert-primary" role="alert">
+			<h:message for="newUserForm" style="font-weight: bold" />
+			<h:message for="loginForm" style="font-weight: bold" />
+		</div>
 
 		<!-- VİTRİN -->
 
@@ -36,7 +40,7 @@
 					<div class="col-lg-1"></div>
 					<div class="col-lg" style="background-color: #F5F5F5; border-radius: 10px;">
 						<div id="uyeGirisKutusu">
-							<h:form class="was-validated">
+							<h:form class="was-validated" id="loginForm" binding="#{login.loginForm}">
 								<div class="form-group">
 									<h:inputText value="#{login.username}" id="userName" class="form-control is-invalid loginInputs" a:placeholder="Kullanıcı Adı veya eMail" maxlength="50" required="true" requiredMessage="Kullanıcı adı boş bırakılamaz."/>
 									    <h:message for="userName" style=" width: 100%; font-weight: bold; font-size: x-small; color:red;"/>
@@ -45,7 +49,7 @@
                                         <h:message for="password" style=" width: 100%; font-weight: bold; font-size: x-small; color:red;"/>
 
                                     <p style="width: 100%; font-weight: bold; font-size: x-small;">Kan bağışçısı olmak için üye olup girip yapmalısınız.</p>
-									<h:commandButton action="#{login.yazdir}" id="loginButton" style="cursor: pointer; float: right; margin-bottom: 10px; margin-top: 20px;" class="btn btn-outline-primary" value="Giriş Yap"/>
+									<h:commandButton action="#{login.login()}" id="loginButton" style="cursor: pointer; float: right; margin-bottom: 10px; margin-top: 20px;" class="btn btn-outline-primary" value="Giriş Yap"/>
 								</div>
 							</h:form>
 							<!-- Button to open the modal -->
@@ -58,34 +62,39 @@
 						</div>
 
 
-						<!-- The Modal (contains the Sign Up form) -->
+						<!-- NEW USER -->
+
 						<div id="id01" class="modal">
-							<h:form class="modal-content animate">
+							<h:form class="modal-content animate" id="newUserForm" binding="#{newUser.messageForm}">
 								<div class="container">
+									<f:event type="postValidate" listener="#{newUser.validatePassword}" />
 									<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">KAPAT</span>
-									<label><b>Ad</b></label>
-									<h:inputText id="newUserName" name="newUserName" a:placeholder="Ad" maxlength="20" required="true" requiredMessage="Adı boş bırakmayınız." />
-                                        <h:message for="newUserName" style=" width: 100%; font-weight: bold; font-size: x-small; color:red;"/>
+									<h:inputText id="newUserName" value="#{newUser.newUserName}" name="newUserName" a:placeholder="Ad" maxlength="20"/>
 
-									<label><b>Soyad</b></label>
-									<h:inputText id="newUserSurname" name="newUserSurname" a:placeholder="Soyad" maxlength="20" required="true" requiredMessage="Soyadı boş bırakamazsınız." />
-                                        <h:message for="newUserSurname" style=" width: 100%; font-weight: bold; font-size: x-small; color:red;"/>
+									<h:inputText id="newUserSurname" value="#{newUser.newUserSurname}" name="newUserSurname" a:placeholder="Soyad" maxlength="20" />
 
-									<label><b>Email veya Kullanıcı Adı</b></label>
-									<h:inputText id="newUserSystemName" name="newUserSystemName" a:placeholder="eMail veya Kullanıcı Adı" maxlength="60" required="true" requiredMessage="Kullanıcı adını boş bırakamazsınız." />
-                                        <h:message for="newUserSystemName" style=" width: 100%; font-weight: bold; font-size: x-small; color:red;"/>
+									<h:inputText id="newUserSystemName" value="#{newUser.newUserSystemName}" name="newUserSystemName" a:placeholder="eMail veya Kullanıcı Adı" maxlength="60"/>
 
-									<label><b>Şifre</b></label>
-									<h:inputSecret id="newSystemPas" name="newSystemPas" a:placeholder="Şifre" maxlength="20" required="true" requiredMessage="Şifreyi boş bırakamazsınız." />
-                                        <h:message for="newSystemPas" style=" width: 100%; font-weight: bold; font-size: x-small; color:red;"/>
+									<div class="row">
+										<div class="col-md-5">
+											<h:inputText id="newUserTel" value="#{newUser.newUserTel}" name="newUserTel" a:placeholder="05xxxxxxxxx" maxlength="11" />
+										</div>
+										<div class="col-md-2"></div>
+										<div class="col-md-5">
+											<h:selectOneMenu id="newUserCity" value="#{newUser.newUserCityId}" styleClass="form-control" style="margin-top:5px; padding-bottom: 15px; padding-top: 15px; margin-bottom: 5px;">
+												<f:selectItems value="#{newUser.allCityMap}"/>
+											</h:selectOneMenu>
+										</div>
+									</div>
 
-									<label><b>Şifre Tekrar</b></label>
-									<h:inputSecret id="newSystemPassAgain" name="newSystemPassAgain" a:placeholder="Şifre Tekrar" maxlength="20" required="true" requiredMessage="Şifreler uyuşmamaktadır."/>
-                                        <h:message for="newSystemPassAgain" style=" width: 100%; font-weight: bold; font-size: x-small; color:red;"/>
+									<h:inputSecret redisplay="true" id="newSystemPas" value="#{newUser.newSystemPas}" a:placeholder="Şifre" maxlength="20"/>
+
+									<h:inputSecret redisplay="true" id="newSystemPassAgain" value="#{newUser.newSystemPassAgain}" a:placeholder="Şifre Tekrar" maxlength="20" />
 
 									<div class="clearfix">
 										<button class="btn btn-danger cancelbtn" type="button" onclick="document.getElementById('id01').style.display='none'">Cancel</button>
-										<h:commandButton id="newUserButton" class="btn btn-success" style="margin-left: 10px;" value="Kayıt Ol"/>
+										<h:commandButton id="newUserButton" action="#{newUser.hello()}" class="btn btn-success" style="margin-left: 10px;" value="Kayıt Ol">
+										</h:commandButton>
 									</div>
 								</div>
 							</h:form>

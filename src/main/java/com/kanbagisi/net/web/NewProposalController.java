@@ -11,7 +11,7 @@ public class NewProposalController {
     private boolean state;
 
     public NewProposalController() {
-        System.out.println("NewProposal Modülü Oluşturuldu.");
+
     }
 
     public String sendProposal(){
@@ -26,7 +26,7 @@ public class NewProposalController {
             return null;
         } else {
             System.out.println("Proposal ekleme başarısız !");
-            return "deneme?faces-redirect=true";
+            return "admin?faces-redirect=true";
         }
     }
 

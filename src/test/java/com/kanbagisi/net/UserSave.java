@@ -6,11 +6,11 @@ import com.kanbagisi.net.entity.City;
 import com.kanbagisi.net.entity.User;
 import com.kanbagisi.net.dao.User.Impl.UserRepositoryImpl;
 
-public class TestUser {
+public class UserSave {
     public static void main(String [] args){
         GeneralRepositoryImpl generalRepository = new GeneralRepositoryImpl();
-        CityRepositoryImpl cityRepository = new CityRepositoryImpl();
-        City city = cityRepository.findCity(34);
+
+        City city = generalRepository.findById(City.class,34);
 
         System.out.println(city.toString());
 
